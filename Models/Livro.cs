@@ -19,6 +19,9 @@ public class Livro
     public int AnoPublicacao { get; private set; }
     public StatusLivroEnum StatusLivro { get; private set; }
 
+    public void AlterarTitulo(string titulo) => Titulo = titulo;
+    
+
     public override string ToString() => $"Id: {Id} | Titulo: {Titulo} | Autor: {Autor} | Ano Punlicação {AnoPublicacao} | Status: {StatusLivro}";
 
 }
