@@ -1,3 +1,4 @@
+using PraticaAulaVini.DTO;
 using PraticaPooAulaVini.DTO;
 using PraticaPooAulaVini.Models;
 
@@ -54,18 +55,35 @@ public static class Menu
 
     public static void ListarLivros(List<Livro> livro)
     {
+
+        if (livro.Count == 0)
+        {
+            Console.WriteLine("\nNão há livros cadastrados.");
+            return;
+        }
+
         Console.WriteLine($"\nLista de livros cadastrados: \n");
 
         livro.ForEach(l => Console.WriteLine(l.ToString()));
     }
 
-    public static void AlterarLivro(List<Livro> livro)
+    public static LivroAtualizaTituloDTO AlterarLivro(List<Livro> livro)
     {
         ListarLivros(livro);
 
+        if (livro.Count == 0)
+            return null;
+
+        Guid idLivro;
         string tituloLivro;
-        string autorLivro;
-        int anoPubicacaoLivro;
+        // string autorLivro;
+        // int anoPubicacaoLivro;
+
+        Console.Write("\nDigite o id do livro: ");
+
+        while (!Guid.TryParse(Console.ReadLine(), out idLivro))
+            Console.WriteLine("\nO id está incorreto, digite novamente: ");
+
 
         Console.Write("\nDigite o novo titulo do livro: ");
         tituloLivro = Console.ReadLine();
@@ -75,20 +93,38 @@ public static class Menu
             Console.Write("O titulo do livro deve ser preenchido, digite novamente: ");
             tituloLivro = Console.ReadLine();
         }
-        Console.Write("\nDigite o novo autor do livro: ");
-        autorLivro = Console.ReadLine();
 
-        while (string.IsNullOrWhiteSpace(autorLivro))
-        {
-            Console.Write("O autor do livro deve ser preenchido, digite novamente: ");
-            autorLivro = Console.ReadLine();
-        }
+        // Console.Write("\nDigite o novo autor do livro: ");
+        // autorLivro = Console.ReadLine();
 
-        Console.Write("\nDigite o novo ano de publicação do livro: ");
-        while (!int.TryParse(Console.ReadLine(), out anoPubicacaoLivro))
-            Console.Write("O titulo do livro deve ser preenchido, digite novamente: ");
+        // while (string.IsNullOrWhiteSpace(autorLivro))
+        // {
+        //     Console.Write("O autor do livro deve ser preenchido, digite novamente: ");
+        //     autorLivro = Console.ReadLine();
+        // }
+
+        // Console.Write("\nDigite o novo ano de publicação do livro: ");
+        // while (!int.TryParse(Console.ReadLine(), out anoPubicacaoLivro))
+        //     Console.Write("O titulo do livro deve ser preenchido, digite novamente: ");
+
+        return new LivroAtualizaTituloDTO(idLivro, tituloLivro);
     }
 
-    public static void DeletarLivro() { }
+    public static LivroDeletaDTO DeletarLivro(List<Livro> livro)
+    {
+        ListarLivros(livro);
+
+        if (livro.Count == 0)
+            return null;
+
+        Guid idLivro;
+
+        Console.Write("\nInforme o Id do livro para deletar: ");
+
+        while (!Guid.TryParse(Console.ReadLine(), out idLivro))
+            Console.WriteLine("\nO id está incorreto, digite novamente: ");
+
+        return new LivroDeletaDTO(idLivro);
+    }
 
 }

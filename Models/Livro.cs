@@ -20,7 +20,8 @@ public class Livro
     public StatusLivroEnum StatusLivro { get; private set; }
 
     public void AlterarTitulo(string titulo) => Titulo = titulo;
-    
+
+    public void Deletar() => StatusLivro = StatusLivroEnum.Indisponivel;    
 
     public override string ToString() => $"Id: {Id} | Titulo: {Titulo} | Autor: {Autor} | Ano Punlicação {AnoPublicacao} | Status: {StatusLivro}";
 
